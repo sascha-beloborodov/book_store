@@ -2,8 +2,6 @@
 
 For launch:
 
-For start:
-
 - download repository (zip or git clone, fork...);
 - "cd" to folder with composer.json;
 - composer install;
