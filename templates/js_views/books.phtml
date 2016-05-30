@@ -1,0 +1,95 @@
+<div class="row">
+    <ol class="breadcrumb">
+        <li ng-repeat="bc in breadcrumbs">
+            <a ng-href="#{{bc.path}}">
+                {{bc.label}}
+            </a>
+        </li>
+    </ol>
+</div>
+<div class="row">
+    <div class="alert alert-danger" role="alert" ng-show="errorMessages.length">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <ul>
+            <li ng-repeat="message in errorMessages">
+                <p ng-bind-html="message.text"></p>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="row">
+    <div class="alert alert-success" role="alert" ng-show="successMessages.length">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <ul>
+            <li ng-repeat="message in successMessages">
+                <p ng-bind-html="message.text"></p>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 margin-tb">
+        <div class="pull-left">
+            <h1>Books list</h1>
+        </div>
+        <div class="pull-right" style="padding-top:30px">
+            <a class="btn btn-success" href="/#/books/add">Create New</a>
+        </div>
+    </div>
+</div>
+<span us-spinner="{radius:30, width:8, length: 16}"></span>
+<table class="table table-bordered pagin-table">
+    <thead>
+    <tr>
+        <th>No</th>
+        <th>
+            <p ng-click=" handleSort('title', !sortReverse, true)" class="js-click-sort">
+                Title
+                <span ng-show="sortType == 'title' && !sortReverse && withSort" class="glyphicon glyphicon-arrow-down"></span>
+                <span ng-show="sortType == 'title' && sortReverse && withSort" class="glyphicon glyphicon-arrow-up"></span>
+            </p>
+        </th>
+        <th>
+            <p ng-click=" handleSort('author', !sortReverse, true)" class="js-click-sort">
+                Author
+                <span ng-show="sortType == 'author' && !sortReverse && withSort" class="glyphicon glyphicon-arrow-down"></span>
+                <span ng-show="sortType == 'author' && sortReverse && withSort" class="glyphicon glyphicon-arrow-up"></span>
+            </p>
+        </th>
+        <th width="90px">Year of published</th>
+        <th width="300px">Description</th>
+        <th width="220px">Action</th>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+            <input type="text" class="form-control" placeholder="Search by title"
+                   ng-change="searchBy()" ng-model="searchTitle" name="search_title">
+        </td>
+        <td>
+            <input type="text" class="form-control" placeholder="Search by author"
+                   ng-change="searchBy()" ng-model="searchAuthor" name="search_author">
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr dir-paginate="value in data | itemsPerPage:countPerPage" total-items="totalItems">
+        <td>{{ $index + 1 }}</td>
+        <td>{{ value.title }}</td>
+        <td>{{ value.author }}</td>
+        <td>{{ value.public_year }}</td>
+        <td>{{ value.description }}</td>
+        <td>
+            <a href="#/books/edit/{{value.id}}" ng-show="userId == value.user_id" class="btn btn-primary">Edit</a>
+            <a href="#/books/show/{{value.id}}" class="btn btn-success">Show</a>
+            <button ng-click="remove(value,$index)" ng-show="userId == value.user_id" class="btn btn-danger">Delete</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<dir-pagination-controls class="pull-right" on-page-change="pageChanged(newPageNumber)"
+                         template-url="templates/dirPagination.html"></dir-pagination-controls>
+

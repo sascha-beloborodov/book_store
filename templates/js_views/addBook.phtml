@@ -1,0 +1,73 @@
+<div class="row">
+    <ol class="breadcrumb">
+        <li ng-repeat="bc in breadcrumbs" ng-hide="!bc.path">
+            <a ng-href="#{{bc.path}}">
+                {{bc.label}}
+            </a>
+        </li>
+    </ol>
+</div>
+
+<div class="row">
+    <div class="alert alert-danger" role="alert" ng-show="errorMessages.length">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <ul>
+            <li ng-repeat="message in errorMessages">
+                <p ng-bind-html="message.text"></p>
+            </li>
+        </ul>
+    </div>
+</div>
+<span us-spinner="{radius:30, width:8, length: 16}"></span>
+<form method="POST" name="addBook" role="form" ng-submit="saveAdd()">
+<div class="row">
+
+    <div class="col-xs-11 col-sm-5 col-md-5">
+        <div class="form-group">
+            <label for="">Title:</label>
+            <input ng-model="book.title" type="text" placeholder="Title" id="title" name="title" class="form-control" ng-minlength="2" ng-maxlength="150" required />
+            <p ng-show="addBook.title.$error.required" class="help-block">Title is required.</p>
+            <p ng-show="addBook.title.$error.minlength" class="help-block">Title is too short.</p>
+            <p ng-show="addBook.title.$error.maxlength" class="help-block">Title is too long.</p>
+        </div>
+    </div>
+
+    <div class="col-xs-11 col-sm-5 col-md-5">
+        <div class="form-group">
+            <label for="">Author:</label>
+            <input ng-model="book.author" type="text" placeholder="Author" id="author" name="author" class="form-control" ng-minlength="2" ng-maxlength="100" required />
+            <p ng-show="addBook.author.$error.required" class="help-block">Author is required.</p>
+            <p ng-show="addBook.author.$error.minlength" class="help-block">Author is too short.</p>
+            <p ng-show="addBook.author.$error.maxlength" class="help-block">Author is too long.</p>
+        </div>
+    </div>
+
+    <div class="col-xs-11 col-sm-5 col-md-5">
+        <div class="form-group">
+            <label for="">Year of public:</label>
+            <input ng-model="book.public_year" type="text" placeholder="Year of public" id="public_year" name="public_year" class="form-control" />
+            <p ng-show="addBook.public_year.$error.required" class="help-block">Year of public is required.</p>
+        </div>
+    </div>
+
+    <div class="col-xs-11 col-sm-5 col-md-5">
+        <img src="" alt="" id="book-cover">
+        <div class="form-group">
+            <label for="">Cover of the book:</label>
+            <input type="file" ng-model="book.book_cover" name="book_cover" onchange="angular.element(this).scope().uploadFile(this.files)">
+        </div>
+    </div>
+
+    <div class="col-xs-11 col-sm-5 col-md-5">
+        <div class="form-group">
+            <label for="">Description:</label>
+            <textarea name="description" id="" cols="30" rows="10" ng-model="book.description" id="description" placeholder="Description" class="form-control" ng-minlength="2" ng-maxlength="2000" required></textarea>
+            <p ng-show="addBook.description.$error.required" class="help-block">Description of public is required.</p>
+            <p ng-show="addBook.description.$error.minlength" class="help-block">Description of public is too short.</p>
+            <p ng-show="addBook.description.$error.maxlength" class="help-block">Description of public is too long.</p>
+        </div>
+    </div>
+</div>
+<a href="/#/books" type="button" class="btn btn-default" data-dismiss="modal">Close</a>
+<button type="submit" ng-disabled="addBook.$invalid" class="btn btn-primary create-crud">Submit</button>
+</form>

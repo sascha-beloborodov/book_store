@@ -1,0 +1,20 @@
+body {
+    padding-top: 60px;
+}
+
+.js-click-sort {
+    cursor: pointer;
+}
+
+.js-reload {
+    cursor: pointer;
+}
+
+.js-reload:hover {
+    font-size: 20px;
+}
+
+.dropdown-menu {
+    width: 260px;
+    padding: 10px;
+}

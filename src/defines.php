@@ -1,0 +1,7 @@
+<?php
+
+
+define('MIN_YEAR', 1700);
+define('MAX_YEAR', 2050);
+define('MAX_FILE_SIZE', 512000);
+define('PREFIX_FILENAME_DB', 'storage' . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . 'temp' . DIRECTORY_SEPARATOR);
